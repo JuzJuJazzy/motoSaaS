@@ -1,0 +1,2 @@
+rootProject.name = 'CameraProximity'
+include ':app'

@@ -1,0 +1,3 @@
+car
+motorbike
+person

@@ -1,0 +1,71 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.r4sventures.motosaas'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.r4sventures.motosaas'
+        minSdk 26
+        targetSdk 35
+        versionCode 4
+        versionName '1.0'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // ให้เก็บ .tflite แบบไม่บีบอัด
+    aaptOptions {
+        noCompress "tflite"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // ให้โหลด assets จากโฟลเดอร์เดียว
+    sourceSets {
+        main {
+            assets.srcDirs = ["src/main/assets"]
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.11.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // CameraX
+    implementation 'androidx.camera:camera-core:1.4.0'
+    implementation 'androidx.camera:camera-camera2:1.4.0'
+    implementation 'androidx.camera:camera-lifecycle:1.4.0'
+    implementation 'androidx.camera:camera-view:1.4.0'
+
+    // ML Kit
+    implementation 'com.google.mlkit:common:18.11.0'
+    implementation 'com.google.mlkit:object-detection:17.0.2'
+    implementation 'com.google.mlkit:object-detection-custom:17.0.2'
+    implementation 'com.google.mlkit:face-detection:16.1.5'
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0'
+
+    // TensorFlow Lite
+    implementation 'org.tensorflow:tensorflow-lite-task-vision:0.4.0'
+    // TensorFlow Lite Interpreter
+    implementation 'org.tensorflow:tensorflow-lite:2.15.0'  // หรือเวอร์ชันล่าสุด
+    // สำหรับไฟล์ label / support image
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.3'
+    // Optional: GPU delegate
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.15.0'
+}

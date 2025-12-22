@@ -1,0 +1,22 @@
+# ===== Android / Gradle =====
+.gradle/
+build/
+**/build/
+
+# ===== Outputs =====
+*.apk
+*.aab
+*.hprof
+*.zip
+
+# ===== Local =====
+local.properties
+
+# ===== IDE =====
+.idea/
+*.iml
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+
