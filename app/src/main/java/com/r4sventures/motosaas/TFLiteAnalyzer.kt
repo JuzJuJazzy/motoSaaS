@@ -10,6 +10,8 @@ import org.tensorflow.lite.support.common.FileUtil
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import android.util.Log
+import android.media.MediaPlayer
+
 
 @androidx.camera.core.ExperimentalGetImage
 class TFLiteAnalyzer(
@@ -32,6 +34,10 @@ class TFLiteAnalyzer(
     private val notifyCooldownMs = 1000L
     private var lastNotifyTime = 0L
     private var thresholdScore = 0.6f
+
+    private val alertPlayer: MediaPlayer by lazy {
+        MediaPlayer.create(context, R.raw.alert)
+    }
 
     init {
         val modelFile = "best_float32_0912.tflite"
@@ -176,6 +182,7 @@ class TFLiteAnalyzer(
 
             if (anyApproaching && currentTime - lastNotifyTime > notifyCooldownMs) {
                 OverlayController.show(context)
+                playAlertSound()
                 lastNotifyTime = currentTime
             } else if (!anyApproaching) {
                 OverlayController.hide(context)
@@ -229,4 +236,17 @@ class TFLiteAnalyzer(
         lastNotifyTime = 0L
         OverlayController.hide(context)
     }
+
+    private fun playAlertSound() {
+        try {
+            if (alertPlayer.isPlaying) {
+                alertPlayer.seekTo(0)
+            } else {
+                alertPlayer.start()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
 }
